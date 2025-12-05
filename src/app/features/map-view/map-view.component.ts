@@ -53,12 +53,12 @@ export class MapViewComponent {
 
 
       //  Fuente 3: Capa WMTS de GeoServer
-      this.sourceService.addWmtsSource(
-          map,
-          'prueba-concepto-mapLibre', // ID único de la fuente
-          geoServerUrl,
-          wmsLayerName
-      );
+      // this.sourceService.addWmtsSource(
+      //     map,
+      //     'prueba-concepto-mapLibre', // ID único de la fuente
+      //     geoServerUrl,
+      //     wmsLayerName
+      // );
 
 
 
@@ -66,7 +66,6 @@ export class MapViewComponent {
        * 5. Añadir capas (layers)
        * ----------------------------- */
       // Capa A: WMS (Tipo 'raster')
-      // No necesitas la función addFillLayer para esta, se añade directamente.s
       this.layerService.addRasterLayer(
           map,
           'prueba-concepto-mapLibre', // ID de la capa
