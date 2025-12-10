@@ -1,2 +1,12 @@
 <div id="map" class="map-container"></div>
 
+<div class="leaflet-style-control">
+  <label *ngFor="let layer of layers">
+    <input
+      type="checkbox"
+      [checked]="layer.visible"
+      (change)="toggle(layer)"
+    />
+        {{ layer.id }}
+  </label>
+</div>

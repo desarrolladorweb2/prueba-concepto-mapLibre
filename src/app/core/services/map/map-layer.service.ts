@@ -40,6 +40,7 @@ export class MapLayerService {
       ...styles,
       source: source,
       'source-layer': layer,
+      minzoom: 15,
     });
   }
 
@@ -57,7 +58,9 @@ export class MapLayerService {
       type: 'fill',
       source,
       'source-layer': sourceLayer,
-      paint,
+      paint, 
+      minzoom: 9,
+      maxzoom: 19,
     });
   }
 
@@ -74,5 +77,36 @@ export class MapLayerService {
       type: 'raster', // El tipo para WMS
       source, // El ID de la fuente WMS (Ej: 'capa-wms-predios')
     });
+  }
+
+  addLayerFromConfig(map: Map, config: any) {
+    if (map.getLayer(config.id)) return;
+
+    map.addLayer({
+      id: config.id,
+      type: config.type,
+      source: config.sourceId,
+      'source-layer': config.sourceLayer,
+      paint: config.paint,
+      layout: config.layout,
+      minzoom: config.minzoom,
+      maxzoom: config.maxzoom,
+    });
+
+    map.setLayoutProperty(
+      config.id,
+      'visibility',
+      config.visible ? 'visible' : 'none'
+    );
+  }
+
+  toggleLayer(map: Map, layerId: string, visible: boolean) {
+    if (!map.getLayer(layerId)) return;
+
+    map.setLayoutProperty(
+      layerId,
+      'visibility',
+      visible ? 'visible' : 'none'
+    );
   }
 }

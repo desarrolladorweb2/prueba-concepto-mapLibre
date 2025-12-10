@@ -21,8 +21,8 @@ export class MapSourceService {
     map.addSource(id, {
       type: 'vector',
       tiles: [tilesUrl],
-      minzoom: 5,
-      maxzoom: 18,
+      minzoom: 0,
+      maxzoom: 22,
       scheme: 'tms',
     });
   }
@@ -78,8 +78,8 @@ export class MapSourceService {
     `&VERSION=1.0.0` +
     `&LAYER=${layerName}` +
     `&STYLE=` +
-    `&TILEMATRIXSET=EPSG:3857` +
-    `&TILEMATRIX=EPSG:3857:{z}` +
+    `&TILEMATRIXSET=EPSG:4326` +
+    `&TILEMATRIX=EPSG:4326:{z}` +
     `&TILEROW={y}` +
     `&TILECOL={x}` +
     `&FORMAT=image/png`;
