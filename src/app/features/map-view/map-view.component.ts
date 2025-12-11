@@ -50,15 +50,11 @@ export class MapViewComponent {
       // );
 
       // Fuente 2: Capa MVT de GeoServer
-      this.sourceService.addVectorSource(
-        map,
-        'prueba-concepto-mapLibre',
-        'http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:prueba-concepto-mapLibre@EPSG:900913@pbf/{z}/{x}/{y}.pbf'
-      );
-
-      MAP_LAYERS.forEach((layer) =>
-        this.layerService.addLayerFromConfig(map, layer)
-      );
+      // this.sourceService.addVectorSource(
+      //   map,
+      //   'prueba-concepto-mapLibre',
+      //   'http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:prueba-concepto-mapLibre@EPSG:900913@pbf/{z}/{x}/{y}.pbf'
+      // );
 
       //  Fuente 3: Capa WMTS de GeoServer
       // this.sourceService.addWmtsSource(
@@ -80,19 +76,19 @@ export class MapViewComponent {
       // );
 
       // Capa B: Calidad MVT (Tipo 'fill' y 'symbol')
-      this.layerService.addFillLayerWithPaint(
-        map,
-        'prueba-concepto-mapLibre',
-        'prueba-concepto-mapLibre',
-        'prueba-concepto-mapLibre',
-        CALIDAD_FILL_PAINT
-      );
-      this.layerService.addSymbolLayer(
-        map,
-        'prueba-concepto-mapLibre',
-        'prueba-concepto-mapLibre',
-        CALIDAD_ICON_SIMBOLO
-      );
+      // this.layerService.addFillLayerWithPaint(
+      //   map,
+      //   'prueba-concepto-mapLibre',
+      //   'prueba-concepto-mapLibre',
+      //   'prueba-concepto-mapLibre',
+      //   CALIDAD_FILL_PAINT
+      // );
+      // this.layerService.addSymbolLayer(
+      //   map,
+      //   'prueba-concepto-mapLibre',
+      //   'prueba-concepto-mapLibre',
+      //   CALIDAD_ICON_SIMBOLO
+      // );
 
       /** -----------------------------
        * 6. Registrar interacciones
@@ -113,13 +109,60 @@ export class MapViewComponent {
 
   layers = MAP_LAYERS;
 
+  // toggle(layer: any) {
+  //   layer.visible = !layer.visible;
+  //   const map = this.mapState.getMap() as Map;
+
+  //   this.layerService.toggleLayer(map, layer.id, layer.visible);
+  // }
+
   toggle(layer: any) {
-    layer.visible = !layer.visible;
     const map = this.mapState.getMap() as Map;
 
+    if (!map.getSource(layer.sourceId)) {
+      if (layer.serviceType === 'WMS') {
+        this.sourceService.addWmsSource(
+          map,
+               layer.sourceId, // ID único de la fuente
+           layer.sourceLayer,
+            layer.sourceLayer
+        );
+        this.layerService.addRasterLayer(
+          map,
+          layer.sourceId,
+          layer.sourceLayer,
+          0.8 // Opacidad
+        );
+
+      }
+      if (layer.serviceType === 'MVT') {
+        this.sourceService.addVectorSource(
+          map,
+          layer.sourceId,
+          layer.sourceLayer
+        );
+
+        this.layerService.addFillLayerWithPaint(
+          map,
+          'prueba-concepto-mapLibre',
+          'prueba-concepto-mapLibre',
+          'prueba-concepto-mapLibre',
+          CALIDAD_FILL_PAINT
+        );
+        this.layerService.addSymbolLayer(
+          map,
+          'prueba-concepto-mapLibre',
+          'prueba-concepto-mapLibre',
+          CALIDAD_ICON_SIMBOLO
+        );
+      }
+    }
+
+    // if (!map.getLayer(layer.id)) {
+    //   this.layerService.addLayerFromConfig(map, layer);
+    // }
+
+    layer.visible = !layer.visible;
     this.layerService.toggleLayer(map, layer.id, layer.visible);
   }
-
 }
-
-

@@ -80,6 +80,7 @@ export class MapLayerService {
   }
 
   addLayerFromConfig(map: Map, config: any) {
+    console.log('Adding layer from config:', config);
     if (map.getLayer(config.id)) return;
 
     map.addLayer({
@@ -88,7 +89,6 @@ export class MapLayerService {
       source: config.sourceId,
       'source-layer': config.sourceLayer,
       paint: config.paint,
-      layout: config.layout,
       minzoom: config.minzoom,
       maxzoom: config.maxzoom,
     });

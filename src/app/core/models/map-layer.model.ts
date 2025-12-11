@@ -8,4 +8,5 @@ export interface MapLayerConfig {
   layout?: any;
   minzoom?: number;
   maxzoom?: number;
+  serviceType?: 'WMS' | 'MVT' | 'WMTS';
 }

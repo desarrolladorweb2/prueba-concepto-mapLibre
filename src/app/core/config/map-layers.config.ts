@@ -7,23 +7,23 @@ import { MapLayerConfig } from '../models/map-layer.model';
 
 export const MAP_LAYERS: MapLayerConfig[] = [
   {
-    id: 'calidad-fill-wms',
+    id: 'formulario-calidad-completo',
+    serviceType: 'WMS',
     sourceId: 'formulario-calidad-completo',
     sourceLayer: 'formulario-calidad-completo',
     type: 'fill',
-    visible: true,
-    paint: CALIDAD_FILL_PAINT,
+    visible: false,
     minzoom: 9,
     maxzoom: 19,
   },
-//   {
-//     id: 'calidad-symbol-mvt-dos',
-//     sourceId: 'prueba-concepto-mapLibre',
-//     sourceLayer: 'prueba-concepto-mapLibre',
-//     type: 'symbol',
-//     visible: true,
-//     layout: CALIDAD_ICON_SIMBOLO.layout,
-//     paint: CALIDAD_ICON_SIMBOLO.paint,
-//     minzoom: 15,
-//   },
+  {
+    id: 'prueba-concepto-mapLibre',
+    serviceType: 'MVT',
+    sourceId: 'prueba-concepto-mapLibre',
+    sourceLayer: 'prueba-concepto-mapLibre',
+    type: 'fill',
+    visible: true,
+    paint: CALIDAD_FILL_PAINT,//{...CALIDAD_ICON_SIMBOLO, ...CALIDAD_FILL_PAINT},
+    minzoom: 15,
+  },
 ];

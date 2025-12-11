@@ -16,11 +16,11 @@ export const BASEMAP_SOURCES: StyleSpecification['sources'] = {
 export class MapSourceService {
   addVectorSource(map: Map, id: string, tilesUrl: string): void {
     if (map.getSource(id)) return;
-    console.log('Adding vector source:', id, tilesUrl);
+    console.log('Adding vector source:', id);
 
     map.addSource(id, {
       type: 'vector',
-      tiles: [tilesUrl],
+      tiles: [`http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:${tilesUrl}@EPSG:900913@pbf/{z}/{x}/{y}.pbf`],
       minzoom: 0,
       maxzoom: 22,
       scheme: 'tms',
@@ -38,11 +38,11 @@ export class MapSourceService {
 
     /** URL válida para MapLibre + GeoServer WMS */
     const wmsUrlTemplate =
-      `${wmsBaseUrl}` +
+      `http://34.196.171.243:8080/geoserver/wsrealidad/wms` +
       `?SERVICE=WMS` +
       `&VERSION=1.1.1` +
       `&REQUEST=GetMap` +
-      `&LAYERS=${layerName}` +
+      `&LAYERS=wsrealidad:${layerName}` +
       `&STYLES=` +
       `&FORMAT=image/png` +
       `&TRANSPARENT=true` +
