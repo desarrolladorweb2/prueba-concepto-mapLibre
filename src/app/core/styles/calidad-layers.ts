@@ -84,6 +84,7 @@ export const CALIDAD_FILL_PAINT: LayerSpecification['paint'] = {
     '#8d8d8dff'
   ],
   'fill-opacity': 1,
+  'fill-outline-color': '#000000',
 };
 
 

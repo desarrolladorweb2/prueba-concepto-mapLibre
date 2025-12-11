@@ -22,7 +22,7 @@ export const MAP_LAYERS: MapLayerConfig[] = [
     sourceId: 'prueba-concepto-mapLibre',
     sourceLayer: 'prueba-concepto-mapLibre',
     type: 'fill',
-    visible: true,
+    visible: false,
     paint: CALIDAD_FILL_PAINT,//{...CALIDAD_ICON_SIMBOLO, ...CALIDAD_FILL_PAINT},
     minzoom: 15,
   },

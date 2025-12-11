@@ -59,8 +59,8 @@ export class MapLayerService {
       source,
       'source-layer': sourceLayer,
       paint, 
-      minzoom: 9,
-      maxzoom: 19,
+      minzoom: 10,
+      maxzoom: 22,
     });
   }
 

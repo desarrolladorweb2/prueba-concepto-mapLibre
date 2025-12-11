@@ -100,6 +100,13 @@ export class MapViewComponent {
           console.log('Predio seleccionado', feature);
         }
       );
+
+      this.interactionService.registerZoom(
+        map,
+        () => {
+          console.log('Zoom level is now:', map.getZoom());
+        }
+      );
     });
   }
 

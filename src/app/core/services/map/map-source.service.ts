@@ -21,8 +21,8 @@ export class MapSourceService {
     map.addSource(id, {
       type: 'vector',
       tiles: [`http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:${tilesUrl}@EPSG:900913@pbf/{z}/{x}/{y}.pbf`],
-      minzoom: 0,
-      maxzoom: 22,
+      minzoom: 10,
+      maxzoom: 25,
       scheme: 'tms',
     });
   }

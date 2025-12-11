@@ -15,4 +15,14 @@ export class MapInteractionService {
       if (f) callback(f);
     });
   }
+
+  registerZoom(
+    map: Map,
+    callback: () => void
+  ): void {
+    map.on('zoom', () => {
+      console.log('Zoom level changed:', map.getZoom());
+      callback();
+    });
+  }
 }
