@@ -48,10 +48,10 @@ export class MapSourceService {
       `&STYLES=` +
       `&FORMAT=image/png` +
       `&TRANSPARENT=true` +
-      `&SRS=EPSG:4326` + // ← OBLIGATORIO
+      `&SRS=EPSG:3857` + 
       `&WIDTH=256` +
       `&HEIGHT=256` +
-      `&BBOX={bbox-epsg-4326}`; // ← OBLIGATORIO
+      `&BBOX={bbox-epsg-3857}`; 
 
     console.log('WMS URL Template:', wmsUrlTemplate);
 
