@@ -20,7 +20,9 @@ export class MapSourceService {
 
     map.addSource(id, {
       type: 'vector',
-      tiles: [`http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:${tilesUrl}@EPSG:900913@pbf/{z}/{x}/{y}.pbf`],
+      tiles: [
+        `http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:${tilesUrl}@EPSG:900913@pbf/{z}/{x}/{y}.pbf`,
+      ],
       minzoom: 10,
       maxzoom: 25,
       scheme: 'tms',
@@ -46,10 +48,10 @@ export class MapSourceService {
       `&STYLES=` +
       `&FORMAT=image/png` +
       `&TRANSPARENT=true` +
-      `&SRS=EPSG:3857` + // ← OBLIGATORIO
+      `&SRS=EPSG:4326` + // ← OBLIGATORIO
       `&WIDTH=256` +
       `&HEIGHT=256` +
-      `&BBOX={bbox-epsg-3857}`; // ← OBLIGATORIO
+      `&BBOX={bbox-epsg-4326}`; // ← OBLIGATORIO
 
     console.log('WMS URL Template:', wmsUrlTemplate);
 
@@ -61,49 +63,34 @@ export class MapSourceService {
   }
 
   addWmtsSource(
-  map: Map,
-  id: string,
-  wmtsBaseUrl: string,
-  layerName: string
-): void {
-  if (map.getSource(id)) return;
+    map: Map,
+    id: string,
+    wmtsBaseUrl: string,
+    layerName: string
+  ): void {
+    if (map.getSource(id)) return;
 
-  console.log('Adding WMTS source:', id, layerName);
+    console.log('Adding XYZ source:', id, layerName);
 
-  /** URL template para WMTS desde GeoServer GWC */
-  const wmtsUrlTemplate =
-    `${wmtsBaseUrl}` +
-    `?SERVICE=WMTS` +
-    `&REQUEST=GetTile` +
-    `&VERSION=1.0.0` +
-    `&LAYER=${layerName}` +
-    `&STYLE=` +
-    `&TILEMATRIXSET=EPSG:4326` +
-    `&TILEMATRIX=EPSG:4326:{z}` +
-    `&TILEROW={y}` +
-    `&TILECOL={x}` +
-    `&FORMAT=image/png`;
+    map.addSource(id, {
+      type: 'raster',
+      tiles: [
+        `http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:${layerName}@EPSG:900913@png8/{z}/{x}/{y}.png8`,
+      ],
+      minzoom: 10,
+      maxzoom: 25,
+      scheme: 'tms',
+    });
 
-  console.log("WMTS URL Template:", wmtsUrlTemplate);
+    map.addLayer({
+      id: `${id}-layer`,
+      type: 'raster',
+      source: id,
+      paint: {
+        'raster-opacity': 1,
+      },
+    });
 
-  /** 1. Agregar el source */
-  map.addSource(id, {
-    type: 'raster',
-    tiles: [wmtsUrlTemplate],
-    tileSize: 256,
-  });
-
-  /** 2. Agregar la capa */
-  map.addLayer({
-    id: `${id}-layer`,
-    type: 'raster',
-    source: id,
-    paint: {
-      "raster-opacity": 1
-    }
-  });
-
-  console.log("WMTS layer added");
-}
-
+    console.log('XYZ layer added');
+  }
 }

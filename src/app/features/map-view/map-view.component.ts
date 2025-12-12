@@ -101,12 +101,9 @@ export class MapViewComponent {
         }
       );
 
-      this.interactionService.registerZoom(
-        map,
-        () => {
-          console.log('Zoom level is now:', map.getZoom());
-        }
-      );
+      this.interactionService.registerZoom(map, () => {
+        console.log('Zoom level is now:', map.getZoom());
+      });
     });
   }
 
@@ -130,9 +127,9 @@ export class MapViewComponent {
       if (layer.serviceType === 'WMS') {
         this.sourceService.addWmsSource(
           map,
-               layer.sourceId, // ID único de la fuente
-           layer.sourceLayer,
-            layer.sourceLayer
+          layer.id, // ID único de la fuente
+          layer.sourceLayer,
+          layer.sourceLayer
         );
         this.layerService.addRasterLayer(
           map,
@@ -140,8 +137,17 @@ export class MapViewComponent {
           layer.sourceLayer,
           0.8 // Opacidad
         );
-
       }
+
+      if (layer.serviceType === 'WMTS') {
+        this.sourceService.addWmtsSource(
+          map,
+          layer.id, // ID único de la fuente
+          layer.sourceLayer,
+          layer.sourceLayer
+        );
+      }
+
       if (layer.serviceType === 'MVT') {
         this.sourceService.addVectorSource(
           map,
