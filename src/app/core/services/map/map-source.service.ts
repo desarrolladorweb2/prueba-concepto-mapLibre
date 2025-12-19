@@ -21,7 +21,8 @@ export class MapSourceService {
     map.addSource(id, {
       type: 'vector',
       tiles: [
-        `http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:${tilesUrl}@EPSG:900913@pbf/{z}/{x}/{y}.pbf`,
+        `https://desa.realidad5.com/geoserver/gwc/service/tms/1.0.0/wsrealidad:${tilesUrl}@EPSG:900913@pbf/{z}/{x}/{y}.pbf`,
+        //`http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:${tilesUrl}@EPSG:900913@pbf/{z}/{x}/{y}.pbf`,
       ],
       minzoom: 10,
       maxzoom: 25,
@@ -40,7 +41,8 @@ export class MapSourceService {
 
     /** URL válida para MapLibre + GeoServer WMS */
     const wmsUrlTemplate =
-      `http://34.196.171.243:8080/geoserver/wsrealidad/wms` +
+      `https://desa.realidad5.com/geoserver/wsrealidad/wms` +
+      //`http://34.196.171.243:8080/geoserver/wsrealidad/wms` +
       `?SERVICE=WMS` +
       `&VERSION=1.1.1` +
       `&REQUEST=GetMap` +
@@ -75,7 +77,8 @@ export class MapSourceService {
     map.addSource(id, {
       type: 'raster',
       tiles: [
-        `http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:${layerName}@EPSG:900913@png8/{z}/{x}/{y}.png8`,
+        `https://desa.realidad5.com/geoserver/gwc/service/tms/1.0.0/wsrealidad:${layerName}@EPSG:900913@png8/{z}/{x}/{y}.png8`,
+        //`http://34.196.171.243:8080/geoserver/gwc/service/tms/1.0.0/wsrealidad:${layerName}@EPSG:900913@png8/{z}/{x}/{y}.png8`,
       ],
       minzoom: 10,
       maxzoom: 25,

@@ -1,12 +1,32 @@
-<div id="map" class="map-container"></div>
+<!-- <div class="map-wrapper">
+  <div id="map" class="map-container"></div>
+  <app-map-draw-toolbar></app-map-draw-toolbar>
+  <div class="leaflet-style-control">
+    <label *ngFor="let layer of layers">
+      <input
+        type="checkbox"
+        [checked]="layer.visible"
+        (change)="toggle(layer)"/>
+      {{ layer.id }}
+    </label>
+  </div>
+</div> -->
 
-<div class="leaflet-style-control">
-  <label *ngFor="let layer of layers">
-    <input
-      type="checkbox"
-      [checked]="layer.visible"
-      (change)="toggle(layer)"
-    />
-        {{ layer.id }}
-  </label>
+<div id="compare-container" class="map-wrapper">
+  <div id="map-left" class="map-container"></div>
+  <div id="map-right" class="map-container" [class.hidden]="!mapState.isCompareActive()"></div>
+
+  <app-map-compare-button></app-map-compare-button>
+  <app-map-draw-toolbar></app-map-draw-toolbar>
+
+  <div class="leaflet-style-control">
+    <label *ngFor="let layer of layers">
+      <input
+        type="checkbox"
+        [checked]="layer.visible"
+        (change)="toggle(layer)"
+      />
+      {{ layer.id }}
+    </label>
+  </div>
 </div>
